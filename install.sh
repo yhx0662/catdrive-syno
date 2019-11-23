@@ -27,9 +27,10 @@ function quit() {
 exit 1
 }
 function install() {
-    down_url=https://github.com/Squaregentleman/catdrive-syno/releases/download/1.0/full.bin
     cd /tmp/
-    download_file "full.bin"
+    send_msg "downloading full.bin"
+    wget -N --no-check-certificate -O full.bin https://github.com/Squaregentleman/catdrive-syno/raw/master/full.bin
+    on_error_exit "download full.bin failed"
     
     send_msg "start writing mdt0"
     dd if="full.bin" of=/dev/mtdblock0 bs=1 skip=0 count=$((0xc8000))
